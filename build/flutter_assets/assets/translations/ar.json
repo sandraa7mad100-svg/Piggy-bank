@@ -1,0 +1,32 @@
+{
+  "app_name": "حصالة النقود",
+  "common": {
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "add": "إضافة",
+    "loading": "جارٍ التحميل...",
+    "retry": "حاول مرة أخرى",
+    "error_generic": "حدث خطأ ما. حاول مرة أخرى."
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "activity": "النشاط",
+    "goals": "الأهداف",
+    "penny": "بيني",
+    "settings": "الإعدادات"
+  },
+  "auth": {
+    "welcome_back": "!مرحباً بعودتك",
+    "sign_in": "تسجيل الدخول",
+    "sign_up": "إنشاء حساب",
+    "create_account": "إنشاء حساب جديد",
+    "kid_mode": "المتابعة كوضع الطفل",
+    "forgot_password": "نسيت كلمة المرور؟"
+  },
+  "home": {
+    "my_piggy_bank": "حصالتي",
+    "recent_activity": "النشاط الأخير",
+    "savings_goals": "أهداف الادخار"
+  }
+}
