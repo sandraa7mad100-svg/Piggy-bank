@@ -1,0 +1,32 @@
+{
+  "app_name": "Piggy Bank",
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "add": "Add",
+    "loading": "Loading...",
+    "retry": "Try again",
+    "error_generic": "Something went wrong. Please try again."
+  },
+  "nav": {
+    "home": "Home",
+    "activity": "Activity",
+    "goals": "Goals",
+    "penny": "Penny",
+    "settings": "Settings"
+  },
+  "auth": {
+    "welcome_back": "Welcome back!",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
+    "create_account": "Create account",
+    "kid_mode": "Continue in Kid Mode",
+    "forgot_password": "Forgot password?"
+  },
+  "home": {
+    "my_piggy_bank": "My Piggy Bank",
+    "recent_activity": "Recent Activity",
+    "savings_goals": "Savings Goals"
+  }
+}
