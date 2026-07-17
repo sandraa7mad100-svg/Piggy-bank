@@ -1,0 +1,93 @@
+name: piggy_bank
+description: "Piggy Bank - a fun, colorful app that teaches kids saving, spending, and budgeting."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.6.1
+
+  # Navigation
+  go_router: ^14.8.1
+
+  # Dependency injection
+  get_it: ^8.0.3
+
+  # Networking
+  dio: ^5.7.0
+  connectivity_plus: ^6.1.2
+
+  # Local storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: ^9.2.2
+
+  # Firebase
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.0
+  cloud_firestore: ^5.6.2
+  firebase_storage: ^12.4.1
+  firebase_messaging: ^15.2.0
+  firebase_crashlytics: ^4.3.0
+  firebase_analytics: ^11.4.0
+  google_sign_in: ^6.2.2
+
+  # Forms & validation
+  form_validator: ^2.1.1
+
+  # Env config
+  flutter_dotenv: ^5.2.1
+
+  # Logging
+  logger: ^2.5.0
+
+  # i18n
+  easy_localization: ^3.0.7
+
+  # Responsive design
+  flutter_screenutil: ^5.9.3
+
+  # Images
+  cached_network_image: ^3.4.1
+
+  # Charts
+  fl_chart: ^0.70.2
+
+  # Model helpers
+  equatable: ^2.0.7
+  uuid: ^4.5.1
+  intl: ^0.20.2
+  crypto: ^3.0.6
+
+  # Fonts & micro-animations
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.2
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/images/
+    - assets/icons/
+    - assets/translations/en.json
+    - assets/translations/ar.json
