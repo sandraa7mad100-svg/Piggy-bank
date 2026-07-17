@@ -1,0 +1,86 @@
+rules_version = '2';
+
+// Piggy Bank Firestore security rules.
+//
+// Model: every child/parent account only ever reads and writes its own
+// subtree under /users/{uid}. There is no cross-user access, no public
+// data, and no client-side trust of any field that matters for
+// authorization (auth state comes only from `request.auth`, never from
+// request body).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['id', 'email', 'displayName', 'isChildMode', 'currency', 'createdAt'])
+        && data.id is string
+        && data.displayName is string
+        && data.displayName.size() > 0 && data.displayName.size() <= 60
+        && data.isChildMode is bool
+        && data.currency is string;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid) && isValidUserProfile(request.resource.data);
+      allow update: if isOwner(uid) && isValidUserProfile(request.resource.data);
+      allow delete: if isOwner(uid);
+
+      // Transactions (spending/income tracker) — optional cloud sync of the
+      // locally-stored Hive data; same owner-only rule.
+      match /transactions/{transactionId} {
+        function isValidTransaction(data) {
+          return data.keys().hasAll(['title', 'amount', 'type', 'category', 'date'])
+            && data.title is string
+            && data.amount is number && data.amount > 0
+            && data.type is number
+            && data.category is number;
+        }
+
+        allow read: if isOwner(uid);
+        allow create, update: if isOwner(uid) && isValidTransaction(request.resource.data);
+        allow delete: if isOwner(uid);
+      }
+
+      // Savings goals
+      match /goals/{goalId} {
+        function isValidGoal(data) {
+          return data.keys().hasAll(['title', 'targetAmount', 'currentAmount'])
+            && data.title is string
+            && data.targetAmount is number && data.targetAmount > 0
+            && data.currentAmount is number && data.currentAmount >= 0;
+        }
+
+        allow read: if isOwner(uid);
+        allow create, update: if isOwner(uid) && isValidGoal(request.resource.data);
+        allow delete: if isOwner(uid);
+      }
+
+      // AI chat history
+      match /chatMessages/{messageId} {
+        allow read, create: if isOwner(uid);
+        allow update, delete: if isOwner(uid);
+      }
+
+      // In-app notifications
+      match /notifications/{notificationId} {
+        allow read, update: if isOwner(uid);
+        // Only written by trusted server-side logic (Cloud Functions),
+        // never directly by the client.
+        allow create, delete: if false;
+      }
+    }
+
+    // Everything else is denied by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
